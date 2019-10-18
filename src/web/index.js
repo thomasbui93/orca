@@ -1,7 +1,7 @@
-const pingRouter = require('./api/health')
+const pingRouter = require('./api/health');
 
 const initialize = (app) => {
-  app.use('/ping', pingRouter)
-}
+  app.use('/ping', pingRouter);
+};
 
-module.exports = initialize
+module.exports = initialize;

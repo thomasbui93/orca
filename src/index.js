@@ -1,7 +1,9 @@
-const { setup } = require('./configuration/setup')
-const { start } = require('./configuration/server')
+const { setup } = require('./configuration/setup');
+const connect = require('./configuration/storage');
+const { start } = require('./configuration/server');
 
-;(() => {
-  setup()
-  start()
-})()
+(async () => {
+  setup();
+  await connect();
+  start();
+})();
