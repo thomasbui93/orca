@@ -1,10 +1,13 @@
 
 const Knex = require('knex');
-const { Model } = require('objection');
+const { Model, knexSnakeCaseMappers } = require('objection');
 const knexConfig = require('../../../knexfile');
 
 const connect = () => {
-  const knex = Knex(knexConfig.development);
+  const knex = Knex({
+    ...knexConfig.development,
+    ...knexSnakeCaseMappers()
+  });
   Model.knex(knex);
 };
 
