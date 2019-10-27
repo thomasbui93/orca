@@ -4,7 +4,7 @@ const { Model, knexSnakeCaseMappers } = require('objection');
 const knexConfig = require('../../../knexfile');
 
 const knex = Knex({
-  ...knexConfig.development,
+  ...knexConfig.production,
   ...knexSnakeCaseMappers()
 });
 
