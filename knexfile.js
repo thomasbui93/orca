@@ -1,14 +1,25 @@
+const { config } = require('dotenv');
+config();
+
 module.exports = {
-  development: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+  production: {
+    client: 'pg',
+    version: '7.2',
     connection: {
-      filename: './example.db'
+      host : process.env.POSTGRESQL_HOST,
+      user : process.env.POSTGRESQL_USER,
+      password : process.env.POSTGRESQL_PASSWORD,
+      database : process.env.POSTGRESQL_DB,
     },
     pool: {
-      afterCreate: (conn, cb) => {
-        conn.run('PRAGMA foreign_keys = ON', cb);
+      afterCreate: function (conn, done) {
+        conn.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";', function (err) {
+          if (err) {
+            console.log('Failed to create extension! uuid will fail');
+          }
+          done();
+        })
       }
-    }
+    },
   },
 }

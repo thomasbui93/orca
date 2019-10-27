@@ -1,4 +1,4 @@
-const {hash} = require('bcrypt');
+const {hash, compare} = require('bcrypt');
 
 module.exports = {
   hash: async (password) => {
@@ -14,7 +14,7 @@ module.exports = {
   },
   compare: (plainTextPassword, hash) => {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(plainTextPassword, hash).then(function(res) {
+      compare(plainTextPassword, hash).then(function(res) {
         resolve(res)
       })
     })

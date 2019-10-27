@@ -7,6 +7,6 @@ module.exports = function (err, req, res, next) {
   res.json({
     error: true,
     message: `Error happened!`,
-    stack: isDev ? err.stack : false
+    stack: isDev ? err.stack : undefined
   })
 }

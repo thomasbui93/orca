@@ -3,9 +3,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const routers = require('../web');
 const errorHandler = require('../infrastructure/middleware/error-handler');
+const passportAuth = require('../infrastructure/authentication/passport_configuration');
 
 const server = {
   start() {
+    server.setupAuth();
     const app = express();
     const port = process.env.PORT;
     server.setupMiddleware(app);
@@ -20,6 +22,9 @@ const server = {
     app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+  },
+  setupAuth() {
+    passportAuth();
   }
 };
 
