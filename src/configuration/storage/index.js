@@ -1,8 +1,8 @@
-const connectToPrimary = require('./primary');
+const { connect } = require('./primary');
 
 module.exports = async () => {
   try {
-    connectToPrimary();
+    connect();
   } catch (err) {
     console.log('Failed at setup storage', err);
   }

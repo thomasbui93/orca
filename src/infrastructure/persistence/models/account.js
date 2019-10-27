@@ -1,9 +1,23 @@
 const { Model } = require('objection');
 const { hash } = require('../hash');
+const Token = require('./token');
 
 class AccountModel extends Model {
   static get tableName() {
     return 'accounts';
+  }
+
+  static get relationMappings() {
+    return {
+      tokens: {
+        relation: Model.HasManyRelation,
+        modelClass: Token,
+        join: {
+          to: 'tokens.account_id',
+          from: 'accounts.id'
+        }
+      }
+    };
   }
 
   static get jsonSchema () {

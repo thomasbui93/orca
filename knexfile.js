@@ -1,14 +1,22 @@
 module.exports = {
   development: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
+    client: 'pg',
+    version: '7.2',
     connection: {
-      filename: './example.db'
+      host : '127.0.0.1',
+      user : 'postgres',
+      password : 'orca_pass',
+      database : 'orca'
     },
     pool: {
-      afterCreate: (conn, cb) => {
-        conn.run('PRAGMA foreign_keys = ON', cb);
+      afterCreate: function (conn, done) {
+        conn.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";', function (err) {
+          if (err) {
+            console.log('Failed to create extension! uuid will fail');
+          }
+          done();
+        })
       }
-    }
+    },
   },
 }
