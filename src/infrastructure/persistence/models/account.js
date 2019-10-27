@@ -56,7 +56,7 @@ class AccountModel extends Model {
       const hashedPassword = await hashPassword(this.password);
       this.password = hashedPassword;
     }
-    this.updatedat = new Date().toISOString();
+    this.updatedAt = new Date().toISOString();
   }
 }
 
