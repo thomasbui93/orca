@@ -2,7 +2,7 @@
 const Knex = require('knex');
 const { Model, knexSnakeCaseMappers } = require('objection');
 const knexConfig = require('../../../knexfile');
-const logger = require('../../infrastructure/logger/winston')
+const logger = require('../../infrastructure/logger/winston');
 
 const knex = Knex({
   ...knexConfig.production,

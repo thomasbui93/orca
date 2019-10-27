@@ -1,6 +1,6 @@
 const { connect } = require('./primary');
 const { connectToRedis } = require('./cache');
-const logger = require('../../infrastructure/logger/winston')
+const logger = require('../../infrastructure/logger/winston');
 
 module.exports = async () => {
   try {

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const routers = require('../web');
 const errorHandler = require('../infrastructure/middleware/error-handler');
 const passportAuth = require('../infrastructure/authentication/passport_configuration');
-const logger = require('../infrastructure/logger/winston')
+const logger = require('../infrastructure/logger/winston');
 
 const server = {
   start() {
