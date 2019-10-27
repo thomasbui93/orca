@@ -4,7 +4,7 @@ const findByToken = require('../../services/account/find_by_token');
 
 module.exports = function () {
   passport.use(new BearerStrategy(
-    function(token, done) {
+    ((token, done) => {
       findByToken(token).then((account, err) => {
         if (err) { return done(err); }
         if (!account) { return done(null, false); }
@@ -12,7 +12,7 @@ module.exports = function () {
       }, (err) => {
         if (err) { return done(err); }
         return done(null, false);
-      })
-    }
+      });
+    }),
   ));
-}
+};

@@ -1,12 +1,12 @@
 module.exports = function (err, req, res, next) {
   if (res.headersSent) {
-    return next(err)
+    return next(err);
   }
-  const isDev = process.env.NODE_ENV !== 'production'
-  res.status(500)
-  res.json({
+  const isDev = process.env.NODE_ENV !== 'production';
+  res.status(500);
+  return res.json({
     error: true,
-    message: `Error happened!`,
-    stack: isDev ? err.stack : undefined
-  })
-}
+    message: 'Error happened!',
+    stack: isDev ? err.stack : undefined,
+  });
+};

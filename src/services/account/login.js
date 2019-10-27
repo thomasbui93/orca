@@ -1,5 +1,5 @@
 const Account = require('../../infrastructure/persistence/models/account');
-const {compare} = require('../../infrastructure/persistence/hash');
+const { comparePassword } = require('../../infrastructure/persistence/hash');
 const createToken = require('./create_token');
 
 module.exports = async (email, password) => {
@@ -8,16 +8,14 @@ module.exports = async (email, password) => {
   }
   const account = await Account
     .query()
-    .findOne({email});
+    .findOne({ email });
   if (account) {
-    const isCorrected = compare(password, account.password);
+    const isCorrected = await comparePassword(password, account.password);
     if (isCorrected) {
       const token = await createToken(account);
-      return token; 
-    } else {
-      return false
+      return token;
     }
-  } else {
     return false;
   }
-}
+  return false;
+};

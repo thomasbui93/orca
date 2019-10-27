@@ -2,12 +2,12 @@ const login = require('../../../services/account/login');
 
 const auth = async (req, res, next) => {
   try {
-    const token = await login(req.body.email, req.body.password)
+    const token = await login(req.body.email, req.body.password);
     if (token) {
       res.json({
         status: true,
-        token: token,
-      })
+        token,
+      });
     } else {
       res.json({
         status: false,

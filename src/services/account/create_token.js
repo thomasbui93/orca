@@ -6,7 +6,7 @@ module.exports = async (account) => {
   }
   const validTokens = await getValidTokens(account.id);
   if (validTokens > 5) {
-    throw Error('Too many requests for authenticated token.')
+    throw Error('Too many requests for authenticated token.');
   }
 
   const token = await account
@@ -15,4 +15,4 @@ module.exports = async (account) => {
     .returning('*');
   delete token.account_id;
   return token;
-}
+};

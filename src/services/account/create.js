@@ -4,6 +4,6 @@ module.exports = async (account) => {
   const newAccount = await Account
     .query()
     .insert(account);
-  
+
   return newAccount;
-}
+};
