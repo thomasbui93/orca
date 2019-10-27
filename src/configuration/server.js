@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const routers = require('../web');
 const errorHandler = require('../infrastructure/middleware/error-handler');
 const passportAuth = require('../infrastructure/authentication/passport_configuration');
+const logger = require('../infrastructure/logger/winston');
 
 const server = {
   start() {
@@ -13,7 +14,7 @@ const server = {
     server.setupMiddleware(app);
     server.setupRouters(app);
     app.use(errorHandler);
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+    app.listen(port, () => logger.info(`Example app listening on port ${port}!`));
   },
   setupRouters(app) {
     routers(app);

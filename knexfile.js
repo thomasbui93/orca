@@ -1,4 +1,5 @@
 const { config } = require('dotenv');
+const logger = require('./src/infrastructure/logger/winston');
 config();
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
       afterCreate: function (conn, done) {
         conn.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";', function (err) {
           if (err) {
-            console.log('Failed to create extension! uuid will fail');
+            logger.error('Failed to create extension! uuid will fail');
           }
           done();
         })
