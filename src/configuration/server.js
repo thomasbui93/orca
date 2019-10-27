@@ -25,7 +25,7 @@ const server = {
   },
   setupAuth() {
     passportAuth();
-  }
+  },
 };
 
 module.exports = server;

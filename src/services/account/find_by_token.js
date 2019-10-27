@@ -11,5 +11,5 @@ module.exports = async (token) => {
     .where('expiredAt', '>=', 'now()')
     .limit(1);
 
-  return account ? account[0]: null;
-}
+  return account ? account[0] : null;
+};

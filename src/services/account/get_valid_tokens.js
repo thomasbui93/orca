@@ -11,4 +11,4 @@ module.exports = async (accountId) => {
     .count();
 
   return validTokens;
-}
+};

@@ -1,5 +1,5 @@
-const Token = require('../../infrastructure/persistence/models/token');
 const { raw } = require('objection');
+const Token = require('../../infrastructure/persistence/models/token');
 
 module.exports.expireToken = async (token) => {
   if (typeof token !== 'string') {
@@ -9,12 +9,12 @@ module.exports.expireToken = async (token) => {
     .query()
     .findById(token)
     .patch({
-      expiredAt: raw('now()')
+      expiredAt: raw('now()'),
     })
     .returning('*');
 
   return affectedToken;
-}
+};
 
 module.exports.expireAllToken = async (accountId) => {
   if (typeof accountId !== 'string') {
@@ -24,10 +24,10 @@ module.exports.expireAllToken = async (accountId) => {
   const affectedTokens = await Token
     .query()
     .patch({
-      expiredAt: raw('now()')
+      expiredAt: raw('now()'),
     })
     .where('accountId', accountId)
     .returning('*');
 
   return affectedTokens;
-}
+};

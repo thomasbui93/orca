@@ -5,7 +5,7 @@ const knexConfig = require('../../../knexfile');
 
 const knex = Knex({
   ...knexConfig.production,
-  ...knexSnakeCaseMappers()
+  ...knexSnakeCaseMappers(),
 });
 
 module.exports.connect = () => {
@@ -16,4 +16,4 @@ module.exports.connect = () => {
 module.exports.status = async () => {
   const status = await knex.raw('select 1+1 as result');
   return !!status;
-}
+};
