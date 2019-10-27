@@ -2,6 +2,7 @@
 const Knex = require('knex');
 const { Model, knexSnakeCaseMappers } = require('objection');
 const knexConfig = require('../../../knexfile');
+const logger = require('../../infrastructure/logger/winston')
 
 const knex = Knex({
   ...knexConfig.production,
@@ -10,7 +11,7 @@ const knex = Knex({
 
 module.exports.connect = () => {
   Model.knex(knex);
-  knex.on('query', console.log);
+  knex.on('query', logger.info);
 };
 
 module.exports.status = async () => {
