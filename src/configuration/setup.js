@@ -1,7 +1,7 @@
-const { config } = require('dotenv')
+const { config } = require('dotenv');
 
 module.exports = {
   setup() {
-    config()
-  }
-}
+    config();
+  },
+};
