@@ -1,5 +1,5 @@
 const { Model, ValidationError } = require('objection');
-const Account = require('./account');
+const User = require('./user');
 
 class TokenModel extends Model {
   static get tableName() {
@@ -8,14 +8,14 @@ class TokenModel extends Model {
 
   static get relationMappings() {
     return {
-      account: {
+      user: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Account,
+        modelClass: User,
         join: {
-          from: 'tokens.account_id',
-          to: 'accounts.id',
+          from: 'tokens.user_id',
+          to: 'users.id',
         },
-      },
+      }
     };
   }
 

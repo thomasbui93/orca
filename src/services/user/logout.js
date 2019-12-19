@@ -16,8 +16,8 @@ module.exports.expireToken = async (token) => {
   return affectedToken;
 };
 
-module.exports.expireAllToken = async (accountId) => {
-  if (typeof accountId !== 'string') {
+module.exports.expireAllToken = async (userId) => {
+  if (typeof userId !== 'string') {
     throw Error('Token is invalid');
   }
 
@@ -26,7 +26,7 @@ module.exports.expireAllToken = async (accountId) => {
     .patch({
       expiredAt: raw('now()'),
     })
-    .where('accountId', accountId)
+    .where('userId', userId)
     .returning('*');
 
   return affectedTokens;

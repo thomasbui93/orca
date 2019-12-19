@@ -1,6 +1,4 @@
-const { Model, ValidationError } = require('objection');
-const { hashPassword } = require('../hash');
-const Token = require('./token');
+const { Model } = require('objection');
 
 class AccountModel extends Model {
   static get tableName() {
@@ -8,31 +6,31 @@ class AccountModel extends Model {
   }
 
   static get relationMappings() {
+    const User = require('./user');
     return {
-      tokens: {
-        relation: Model.HasManyRelation,
-        modelClass: Token,
+      users: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
         join: {
-          to: 'tokens.account_id',
-          from: 'accounts.id',
-        },
-      },
+          from: 'users.id',
+          through: {
+            from: 'accounts_users.user_id',
+            to: 'accounts_users.account_id'
+          },
+          to: 'accounts.id'
+        }
+      }
     };
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['firstName', 'lastName', 'email'],
+      required: ['name'],
 
       properties: {
         id: { type: 'string' },
-        firstName: { type: 'string', minLength: 1, maxLength: 255 },
-        lastName: { type: 'string', minLength: 1, maxLength: 255 },
-        password: { type: 'string', minLength: 6, maxLength: 255 },
-        email: {
-          type: 'string', minLength: 1, maxLength: 255, format: 'email',
-        },
+        name: { type: 'string', minLength: 1, maxLength: 255 },
         createdAt: { type: 'string', format: 'date-time' },
         updatedAt: { type: 'string', format: 'date-time' },
       },
@@ -40,22 +38,10 @@ class AccountModel extends Model {
   }
 
   async $beforeInsert() {
-    if (this.id) {
-      throw new ValidationError({
-        message: 'identifier should not be defined before insert',
-        type: 'Error',
-      });
-    }
-    const hashedPassword = await hashPassword(this.password);
-    this.password = hashedPassword;
     this.createdAt = new Date().toISOString();
   }
 
   async $beforeUpdate() {
-    if (this.password) {
-      const hashedPassword = await hashPassword(this.password);
-      this.password = hashedPassword;
-    }
     this.updatedAt = new Date().toISOString();
   }
 }

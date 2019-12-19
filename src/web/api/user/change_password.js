@@ -1,6 +1,6 @@
-const changePassword = require('../../../services/account/change_password');
-const { expireAllToken } = require('../../../services/account/logout');
-const createToken = require('../../../services/account/create_token');
+const changePassword = require('../../../services/user/change_password');
+const { expireAllToken } = require('../../../services/user/logout');
+const createToken = require('../../../services/user/create_token');
 
 const updatePassword = async (req, res, next) => {
   try {

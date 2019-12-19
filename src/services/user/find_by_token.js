@@ -1,15 +1,15 @@
-const Account = require('../../infrastructure/persistence/models/account');
+const User = require('../../infrastructure/persistence/models/user');
 
 module.exports = async (token) => {
   if (typeof token !== 'string') {
     throw Error('Missing token');
   }
-  const account = await Account
+  const user = await User
     .query()
     .joinRelation('tokens')
     .where('tokens.id', token)
     .where('expiredAt', '>=', 'now()')
     .limit(1);
 
-  return account ? account[0] : null;
+  return user ? user[0] : null;
 };

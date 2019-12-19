@@ -2,9 +2,9 @@ const createAccount = require('../../../services/account/create');
 
 const create = async (req, res, next) => {
   try {
-    await createAccount(req.body);
+    const account = await createAccount(req.body);
     res.json({
-      status: true,
+      account
     });
   } catch (err) {
     next(err);

@@ -4,9 +4,9 @@ exports.up = function(knex) {
     .schema
     .createTable('tokens', function (table) {
       table.uuid('id').defaultTo(knex.raw('uuid_generate_v4()')).primary();
-      table.uuid('account_id')
+      table.uuid('user_id')
         .references('id')
-        .inTable('accounts')
+        .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());

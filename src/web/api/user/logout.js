@@ -1,4 +1,4 @@
-const { expireToken, expireAllToken } = require('../../../services/account/logout');
+const { expireToken, expireAllToken } = require('../../../services/user/logout');
 
 const logout = async (req, res, next) => {
   try {
