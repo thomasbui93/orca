@@ -24,8 +24,8 @@ class UserModel extends Model {
         join: {
           from: 'accounts.id',
           through: {
-            from: 'accounts_users.account_id',
-            to: 'accounts_users.user_id',
+            from: 'accounts_users.userId',
+            to: 'accounts_users.accountId',
             extra: ['role']
           },
           to: 'users.id'

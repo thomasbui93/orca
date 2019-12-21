@@ -5,7 +5,7 @@ const userRouter = require('./api/user');
 
 const initialize = (app) => {
   app.use('/ping', passport.authenticate('bearer', { session: false }), pingRouter);
-  app.use('/api/account', accountRouter);
+  app.use('/api/account', passport.authenticate('bearer', { session: false }), accountRouter);
   app.use('/api/user', userRouter);
 };
 
