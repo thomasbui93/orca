@@ -1,4 +1,4 @@
-const Account = require('../../infrastructure/persistence/models/account');
+const User = require('../../infrastructure/persistence/models/user');
 const { comparePassword } = require('../../infrastructure/persistence/hash');
 const createToken = require('./create_token');
 
@@ -6,13 +6,13 @@ module.exports = async (email, password) => {
   if (!email || !password) {
     throw Error('Missing login credential');
   }
-  const account = await Account
+  const user = await User
     .query()
     .findOne({ email });
-  if (account) {
-    const isCorrected = await comparePassword(password, account.password);
+  if (user) {
+    const isCorrected = await comparePassword(password, user.password);
     if (isCorrected) {
-      const token = await createToken(account);
+      const token = await createToken(user);
       return token;
     }
     return false;

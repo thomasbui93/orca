@@ -1,8 +1,10 @@
-const Account = require('../../infrastructure/persistence/models/account');
+module.exports = async (account, user) => {
+  if (!user) {
+    throw new Error('user is missing when create account');
+  }
 
-module.exports = async (account) => {
-  const newAccount = await Account
-    .query()
+  const newAccount = await user
+    .$relatedQuery('accounts')
     .insert(account);
 
   return newAccount;

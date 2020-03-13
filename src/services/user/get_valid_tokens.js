@@ -1,12 +1,12 @@
 const Token = require('../../infrastructure/persistence/models/token');
 
-module.exports = async (accountId) => {
-  if (typeof accountId !== 'string') {
-    throw Error('Account is invalid');
+module.exports = async (userId) => {
+  if (typeof userId === 'undefined') {
+    throw Error('User is invalid');
   }
   const validTokens = await Token
     .query()
-    .where('accountId', accountId)
+    .where('userId', userId)
     .where('expiredAt', '>=', 'now()')
     .count();
 

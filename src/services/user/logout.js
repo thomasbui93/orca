@@ -9,24 +9,24 @@ module.exports.expireToken = async (token) => {
     .query()
     .findById(token)
     .patch({
-      expiredAt: raw('now()'),
+      expiredAt: raw('NOW()'),
     })
     .returning('*');
 
   return affectedToken;
 };
 
-module.exports.expireAllToken = async (accountId) => {
-  if (typeof accountId !== 'string') {
-    throw Error('Token is invalid');
+module.exports.expireAllToken = async (userId) => {
+  if (typeof userId === 'undefined') {
+    throw Error('userId is invalid');
   }
 
   const affectedTokens = await Token
     .query()
     .patch({
-      expiredAt: raw('now()'),
+      expiredAt: raw('NOW()'),
     })
-    .where('accountId', accountId)
+    .where('userId', userId)
     .returning('*');
 
   return affectedTokens;

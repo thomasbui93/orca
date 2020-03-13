@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src/**",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/index.js",
+    "start": "process.env.NODE_ENV=development nodemon ./src/index.js",
     "prod": "node ./src/index.js",
     "create-migration": "knex migrate:make",
     "migrate": "knex migrate:latest",
@@ -22,11 +22,12 @@
     "express": "^4.17.1",
     "ioredis": "^4.14.1",
     "knex": "^0.19.5",
+    "mysql": "^2.18.1",
     "objection": "^1.6.11",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
-    "pg": "^7.12.1",
     "sequelize": "^5.21.0",
+    "uuid": "^7.0.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
