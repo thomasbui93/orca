@@ -4,7 +4,7 @@ const create = async (req, res, next) => {
   try {
     const account = await createAccount(req.body, req.user);
     res.json({
-      account
+      account,
     });
   } catch (err) {
     next(err);

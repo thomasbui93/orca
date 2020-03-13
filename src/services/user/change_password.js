@@ -1,8 +1,11 @@
 const User = require('../../infrastructure/persistence/models/user');
+const passwordChecker = require('./password_checker');
 
 module.exports = async (userId, password) => {
-  if (typeof userId !== 'string') {
-    throw Error('Invalid userId')
+  passwordChecker(password);
+
+  if (typeof userId === 'undefined') {
+    throw Error('Invalid userId');
   }
 
   const updatedUser = await User

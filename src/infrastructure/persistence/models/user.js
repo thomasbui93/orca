@@ -1,4 +1,6 @@
-const { Model, ValidationError } = require('objection');
+/* eslint-disable global-require */
+const { ValidationError } = require('objection');
+const Model = require('./core');
 const { hashPassword } = require('../hash');
 const Account = require('./account');
 
@@ -26,11 +28,11 @@ class UserModel extends Model {
           through: {
             from: 'accounts_users.userId',
             to: 'accounts_users.accountId',
-            extra: ['role']
+            extra: ['role'],
           },
-          to: 'users.id'
-        }
-      }
+          to: 'users.id',
+        },
+      },
     };
   }
 
@@ -61,7 +63,6 @@ class UserModel extends Model {
     }
     const hashedPassword = await hashPassword(this.password);
     this.password = hashedPassword;
-    this.createdAt = new Date().toISOString();
   }
 
   async $beforeUpdate() {
@@ -69,7 +70,18 @@ class UserModel extends Model {
       const hashedPassword = await hashPassword(this.password);
       this.password = hashedPassword;
     }
-    this.updatedAt = new Date().toISOString();
+  }
+
+  static findByEmail(email) {
+    if (typeof email !== 'string') {
+      throw Error('Invalid email.');
+    }
+
+    return UserModel
+      .query()
+      .where('email', email)
+      .limit(1)
+      .first();
   }
 }
 

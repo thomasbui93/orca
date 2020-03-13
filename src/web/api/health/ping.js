@@ -3,10 +3,10 @@ const { Redis } = require('../../../configuration/storage/cache');
 
 const index = async (req, res, next) => {
   try {
-    const postgresqlStatus = await status();
+    const sqlStatus = await status();
     const redisStatus = await Redis().ping();
     res.json({
-      postgresql: postgresqlStatus,
+      sql: sqlStatus,
       redis: redisStatus === 'PONG',
     });
   } catch (err) {

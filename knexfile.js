@@ -4,23 +4,13 @@ config();
 
 module.exports = {
   production: {
-    client: 'pg',
+    client: 'mysql',
     version: '7.2',
     connection: {
-      host : process.env.POSTGRESQL_HOST,
-      user : process.env.POSTGRESQL_USER,
-      password : process.env.POSTGRESQL_PASSWORD,
-      database : process.env.POSTGRESQL_DB,
-    },
-    pool: {
-      afterCreate: function (conn, done) {
-        conn.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";', function (err) {
-          if (err) {
-            logger.error('Failed to create extension! uuid will fail');
-          }
-          done();
-        })
-      }
-    },
+      host : process.env.SQL_HOST,
+      user : process.env.SQL_USER,
+      password : process.env.SQL_PASSWORD,
+      database : process.env.SQL_DB,
+    }
   },
 }

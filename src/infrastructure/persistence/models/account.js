@@ -1,4 +1,5 @@
-const { Model } = require('objection');
+/* eslint-disable global-require */
+const Model = require('./core');
 
 class AccountModel extends Model {
   static get tableName() {
@@ -15,11 +16,11 @@ class AccountModel extends Model {
           from: 'users.id',
           through: {
             from: 'accounts_users.user_id',
-            to: 'accounts_users.account_id'
+            to: 'accounts_users.account_id',
           },
-          to: 'accounts.id'
-        }
-      }
+          to: 'accounts.id',
+        },
+      },
     };
   }
 
@@ -35,14 +36,6 @@ class AccountModel extends Model {
         updatedAt: { type: 'string', format: 'date-time' },
       },
     };
-  }
-
-  async $beforeInsert() {
-    this.createdAt = new Date().toISOString();
-  }
-
-  async $beforeUpdate() {
-    this.updatedAt = new Date().toISOString();
   }
 }
 

@@ -1,4 +1,5 @@
-const { Model, ValidationError } = require('objection');
+const { ValidationError } = require('objection');
+const Model = require('./core');
 const User = require('./user');
 
 class TokenModel extends Model {
@@ -15,7 +16,7 @@ class TokenModel extends Model {
           from: 'tokens.user_id',
           to: 'users.id',
         },
-      }
+      },
     };
   }
 
@@ -25,6 +26,7 @@ class TokenModel extends Model {
 
       properties: {
         id: { type: 'string' },
+        value: { type: 'string' },
         createdAt: { type: 'string', format: 'date-time' },
         expiredAt: { type: 'string', format: 'date-time' },
       },

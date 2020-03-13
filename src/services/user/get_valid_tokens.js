@@ -1,7 +1,7 @@
 const Token = require('../../infrastructure/persistence/models/token');
 
 module.exports = async (userId) => {
-  if (typeof userId !== 'string') {
+  if (typeof userId === 'undefined') {
     throw Error('User is invalid');
   }
   const validTokens = await Token

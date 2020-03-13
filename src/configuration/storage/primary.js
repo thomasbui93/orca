@@ -12,7 +12,7 @@ module.exports.connect = () => {
   Model.knex(knex);
   if (process.env.NODE_ENV !== 'production') {
     knex.on('query', (query) => {
-      console.log(query)
+      console.log(query);
     });
   }
 };

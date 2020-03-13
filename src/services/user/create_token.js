@@ -1,3 +1,5 @@
+const { raw } = require('objection');
+const { v4 } = require('uuid');
 const getValidTokens = require('./get_valid_tokens');
 
 module.exports = async (user) => {
@@ -11,7 +13,10 @@ module.exports = async (user) => {
 
   const token = await user
     .$relatedQuery('tokens')
-    .insert({})
+    .insert({
+      value: v4(),
+      expiredAt: raw('NOW() + INTERVAL 30 MINUTE'),
+    })
     .returning('*');
   delete token.user_id;
   return token;

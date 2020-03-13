@@ -4,7 +4,7 @@ const create = async (req, res, next) => {
   try {
     await removeAccount(req.params.id, req.user);
     res.json({
-      status: true
+      status: true,
     });
   } catch (err) {
     next(err);

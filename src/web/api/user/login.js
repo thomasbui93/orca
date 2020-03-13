@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
     } else {
       res.json({
         status: false,
-      });createUser
+      });
     }
   } catch (err) {
     next(err);

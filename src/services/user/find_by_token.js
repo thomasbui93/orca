@@ -1,3 +1,4 @@
+const { raw } = require('objection');
 const User = require('../../infrastructure/persistence/models/user');
 
 module.exports = async (token) => {
@@ -7,8 +8,8 @@ module.exports = async (token) => {
   const user = await User
     .query()
     .joinRelation('tokens')
-    .where('tokens.id', token)
-    .where('expiredAt', '>=', 'now()')
+    .where('tokens.value', token)
+    .where('tokens.expiredAt', '>=', raw('now()'))
     .limit(1);
 
   return user ? user[0] : null;
